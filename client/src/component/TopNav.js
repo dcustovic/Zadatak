@@ -1,14 +1,14 @@
-import React, { Component } from 'react';
-
+import React from 'react';
+import { Link } from 'react-router-dom';
 
 function TopNav() {
   return (
     <nav className="navbar navbar-light bg-dark mb-5">
-        <div className="text-white">MOVIES API</div>
-        <form className="form-inline">
-            <button className="btn btn-success my-2 my-sm-0" type="submit">Create</button>
-            <button className="btn btn-danger my-2 my-sm-0" type="submit">Delete</button>
-        </form>
+        <Link to="/" className="text-white"><b>MOVIES API</b></Link>
+
+        <div>
+            <Link to="/new" className="btn btn-primary my-2 my-sm-0" type="submit">Create</Link>
+        </div>
     </nav>
   );
  }

@@ -1,12 +1,14 @@
-import React, { Component } from 'react';
+import React from 'react';
 
 
-function ListMovies({ children }) {
+const ListMovies = ({ children }) => {
  
     return(
-        <ul className="list-group">
-            {children}
-        </ul>
+
+            <ul className="list-group">
+                {children}
+            </ul>
+   
     )
 };
 

@@ -21,31 +21,34 @@ class MoviesBody extends Component {
             })
         })
     }
+    renderMovies() {
+        return _.map(this.state.movies, (movie) => {
+            return (
+                <ListMovie
+                    key={movie.id}
+                    name={movie.name}
+                    genre={movie.genre}
+                    rating={movie.rating}
+                    explicit={movie.explicit}
+                    id={movie.id}
+                />
+            )
+        })
+    }
     render() {
-        if (this.state.loading === true) {
+        if (this.state.loading) {
             return (
                 <h3>Loading... Please wait a moment.</h3>
             );
         }
         return(
             <ListMovies>
-                {this.renderMovies()}
+                {this.renderMovies()} 
             </ListMovies>
           
         );
     }
-    renderMovies() {
-        return _.map(this.state.movies, movie => {
-            return (
-                <ListMovie
-                    name={movie.name}
-                    genre={movie.genre}
-                    rating={movie.rating}
-                    explicit={movie.explicit}
-                />
-            )
-        })
-    }
+    
 
 }
 
