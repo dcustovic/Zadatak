@@ -23,46 +23,34 @@ router.get('/', (req, res) => {
 
 router.get('/:id', (req, res) => {
     const { id } = req.params;
-
-    if (typeof id != 'undefined') {
-        Movies.findById(req.params.id)
-        .then(data => {
-            if (data) {
-                res.status(200).json(data)
-            } else {
-                res.status(404).json({ message: "Record not found."})
-            }
-        })
-    } else {
+    
+    Movies.findById(req.params.id)
+    .then(data => {
+        if (data) {
+            res.status(200).json(data)
+        } else {
+            res.status(404).json({ message: "Record not found."})
+        }
+    })
+    .catch(error => {
         console.error(error)
-        res.status(500).json({ message: 'Greska: ' + error})
-    }
+        res.status(500).json({ message: "Unable to perform the operation."})
+    })
 });
 
-
-function validMovie(movie) {
-    return typeof movie.id == 'string' && movie.name.trim() != '';
-
-}
 
 // POST
 
 router.post('/', (req, res) => {
     console.info(req.body)
-
-    if (validMovie(req.body)) {
-        // insert
-        Movies.add(req.body)
-        .then(data => {
-            res.status(200).json(data)
+    Movies.add(req.body)
+    .then(data => {
+        res.status(200).json(data)
     })
-    } else {
-        // respond with an error
+    .catch(error => {
         console.error(error)
-        res.status(500).json({ message: 'Greska: ' + error})
-    }
-
-
+        res.status(500).json({ message: "Cannot add movie." })
+    })
 });
 
 
