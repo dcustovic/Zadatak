@@ -13,7 +13,8 @@ router.get('/', (req, res) => {
         res.status(200).json(data)
     })
     .catch(error => {
-        res.status(500).json({ message: "Unable to retrieve movies."})
+        console.error(error)
+        res.status(500).json({ message: 'Greska: ' + error})
     })
 });
 
@@ -22,39 +23,57 @@ router.get('/', (req, res) => {
 
 router.get('/:id', (req, res) => {
     const { id } = req.params;
-    
-    Movies.findById(req.params.id)
-    .then(data => {
-        if (data) {
-            res.status(200).json(data)
-        } else {
-            res.status(404).json({ message: "Record not found."})
-        }
-    })
-    .catch(error => {
-        res.status(500).json({ message: "Unable to perform the operation."})
-    })
+
+    if (typeof id != 'undefined') {
+        Movies.findById(req.params.id)
+        .then(data => {
+            if (data) {
+                res.status(200).json(data)
+            } else {
+                res.status(404).json({ message: "Record not found."})
+            }
+        })
+    } else {
+        console.error(error)
+        res.status(500).json({ message: 'Greska: ' + error})
+    }
 });
 
+
+function validMovie(movie) {
+    return typeof movie.id == 'string' && movie.name.trim() != '';
+
+}
 
 // POST
 
 router.post('/', (req, res) => {
-    Movies.add(req.body)
-    .then(data => {
-        res.status(200).json(data)
+    console.info(req.body)
+
+    if (validMovie(req.body)) {
+        // insert
+        Movies.add(req.body)
+        .then(data => {
+            res.status(200).json(data)
     })
-    .catch(error => {
-        res.status(500).json({ message: "Cannot add movie." })
-    })
+    } else {
+        // respond with an error
+        console.error(error)
+        res.status(500).json({ message: 'Greska: ' + error})
+    }
+
+
 });
 
 
 // UPDATE by id
 
 router.put('/:id', (req, res) => {
+    console.info(req.body)
+    console.info(req.params)
+
     const { id } = req.params;
-    const changes = req.body
+    const changes = req.body;
 
     Movies.update(id, changes) 
     .then(data => {
@@ -65,7 +84,8 @@ router.put('/:id', (req, res) => {
         }
     })
     .catch(error => {
-        res.status(500).json({ message: "Error updating record."})
+        console.error(error)
+        res.status(500).json({ message: 'Greska: ' + error})
     })
 });
 
@@ -84,7 +104,8 @@ router.delete('/:id', (req, res) => {
         }
     })
     .catch(error => {
-        res.status(500).json({ message: "Unable to delete record." })
+        console.error(error)
+        res.status(500).json({ message: 'Greska: ' + error})
     })
 });
 

@@ -25,7 +25,7 @@ class SingleMovieEdit extends Component {
     }
     handleSubmit(event) {
         event.preventDefault();
-        const { name, genre, rating, explicit } = this.state;
+        const { name, genre, rating, explicit, } = this.state;
         const { id, history } = this.props;
 
         // onda editiramo

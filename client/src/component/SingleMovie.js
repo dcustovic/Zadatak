@@ -22,7 +22,7 @@ class SingleMovie extends Component {
     render() {
         if (this.state.loading) {
             return (
-                <h3>Loading... Please wait.</h3>
+                <h4>Loading... Please wait.</h4>
             )
         }
         return (

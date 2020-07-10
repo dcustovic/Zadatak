@@ -10,7 +10,7 @@ class MovieCard extends Component {
             name: props.name,
             genre: props.genre,
             rating: props.rating,
-            explicit: props.name
+            explicit: props.explicit
         }
         this.onEdit = this.onEdit.bind(this);
         this.updateState = this.updateState.bind(this);
